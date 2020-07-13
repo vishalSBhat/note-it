@@ -16,12 +16,14 @@ export default class ToDoContainer extends Component {
 
   componentWillMount() {
     const token = localStorage.getItem("user");
-    axios.get(`/user/list/${token}`).then((res) => {
-      const data = res.data;
-      if (data.authentication) this.props.authenticate("null");
-      else if (data.list) this.setState({ itemList: [...data.list] });
-      else alert(data);
-    });
+    axios
+      .get(`https://powerful-temple-81597.herokuapp.com/user/list/${token}`)
+      .then((res) => {
+        const data = res.data;
+        if (data.authentication) this.props.authenticate("null");
+        else if (data.list) this.setState({ itemList: [...data.list] });
+        else alert(data);
+      });
   }
 
   updateItemList = (res, loading) => {
@@ -41,9 +43,12 @@ export default class ToDoContainer extends Component {
       return;
     }
     axios
-      .post(`/user/add-item/${token}`, {
-        item: this.state.itemName,
-      })
+      .post(
+        `https://powerful-temple-81597.herokuapp.com/user/add-item/${token}`,
+        {
+          item: this.state.itemName,
+        }
+      )
       .then((res) => this.updateItemList(res, loading));
   };
 
@@ -53,9 +58,12 @@ export default class ToDoContainer extends Component {
     const token = localStorage.getItem("user");
     if (!document.getElementById(id).hasAttribute("readonly")) return;
     axios
-      .post(`/user/item-status/${token}`, {
-        id,
-      })
+      .post(
+        `https://powerful-temple-81597.herokuapp.com/user/item-status/${token}`,
+        {
+          id,
+        }
+      )
       .then((res) => this.updateItemList(res, loading));
   };
 
@@ -64,9 +72,12 @@ export default class ToDoContainer extends Component {
     loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     axios
-      .post(`/user/delete-item/${token}`, {
-        id,
-      })
+      .post(
+        `https://powerful-temple-81597.herokuapp.com/user/delete-item/${token}`,
+        {
+          id,
+        }
+      )
       .then((res) => this.updateItemList(res, loading));
   };
 
@@ -75,10 +86,13 @@ export default class ToDoContainer extends Component {
     loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     axios
-      .post(`/user/edit-item/${token}`, {
-        id,
-        name,
-      })
+      .post(
+        `https://powerful-temple-81597.herokuapp.com/user/edit-item/${token}`,
+        {
+          id,
+          name,
+        }
+      )
       .then((res) => this.updateItemList(res, loading));
   };
 
