@@ -4,8 +4,6 @@ import ToDoList from "./ToDoList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const token = localStorage.getItem("user");
-
 export default class ToDoContainer extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +14,7 @@ export default class ToDoContainer extends Component {
   }
 
   componentWillMount() {
+    const token = localStorage.getItem("user");
     axios.get(`http://localhost:5000/user/list/${token}`).then((res) => {
       const data = res.data;
       if (data.authentication) this.props.authenticate("null");
@@ -32,6 +31,7 @@ export default class ToDoContainer extends Component {
   };
 
   addItem = () => {
+    const token = localStorage.getItem("user");
     if (this.state.itemName.trim() === "") {
       alert("Enter a new item name");
       return;
@@ -44,6 +44,7 @@ export default class ToDoContainer extends Component {
   };
 
   onItemPress = (id) => {
+    const token = localStorage.getItem("user");
     if (!document.getElementById(id).hasAttribute("readonly")) return;
     axios
       .post(`http://localhost:5000/user/item-status/${token}`, {
@@ -53,6 +54,7 @@ export default class ToDoContainer extends Component {
   };
 
   deleteItem = (id) => {
+    const token = localStorage.getItem("user");
     axios
       .post(`http://localhost:5000/user/delete-item/${token}`, {
         id,
@@ -61,6 +63,7 @@ export default class ToDoContainer extends Component {
   };
 
   editItem = (id, name) => {
+    const token = localStorage.getItem("user");
     axios
       .post(`http://localhost:5000/user/edit-item/${token}`, {
         id,
