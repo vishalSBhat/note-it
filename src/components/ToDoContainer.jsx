@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Loading from "./Loading";
 import ToDoList from "./ToDoList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +16,7 @@ export default class ToDoContainer extends Component {
 
   componentWillMount() {
     const token = localStorage.getItem("user");
-    axios.get(`http://localhost:5000/user/list/${token}`).then((res) => {
+    axios.get(`/user/list/${token}`).then((res) => {
       const data = res.data;
       if (data.authentication) this.props.authenticate("null");
       else if (data.list) this.setState({ itemList: [...data.list] });
@@ -23,7 +24,8 @@ export default class ToDoContainer extends Component {
     });
   }
 
-  updateItemList = (res) => {
+  updateItemList = (res, loading) => {
+    loading.classList.add("d-none");
     const data = res.data;
     if (data.authentication) this.props.authenticate("null");
     else if (data.list) window.location.reload();
@@ -31,50 +33,59 @@ export default class ToDoContainer extends Component {
   };
 
   addItem = () => {
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     if (this.state.itemName.trim() === "") {
       alert("Enter a new item name");
       return;
     }
     axios
-      .post(`http://localhost:5000/user/add-item/${token}`, {
+      .post(`/user/add-item/${token}`, {
         item: this.state.itemName,
       })
-      .then((res) => this.updateItemList(res));
+      .then((res) => this.updateItemList(res, loading));
   };
 
   onItemPress = (id) => {
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     if (!document.getElementById(id).hasAttribute("readonly")) return;
     axios
-      .post(`http://localhost:5000/user/item-status/${token}`, {
+      .post(`/user/item-status/${token}`, {
         id,
       })
-      .then((res) => this.updateItemList(res));
+      .then((res) => this.updateItemList(res, loading));
   };
 
   deleteItem = (id) => {
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     axios
-      .post(`http://localhost:5000/user/delete-item/${token}`, {
+      .post(`/user/delete-item/${token}`, {
         id,
       })
-      .then((res) => this.updateItemList(res));
+      .then((res) => this.updateItemList(res, loading));
   };
 
   editItem = (id, name) => {
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     axios
-      .post(`http://localhost:5000/user/edit-item/${token}`, {
+      .post(`/user/edit-item/${token}`, {
         id,
         name,
       })
-      .then((res) => this.updateItemList(res));
+      .then((res) => this.updateItemList(res, loading));
   };
 
   render() {
     return (
       <div id="to-do-list" className="col-11 col-sm-7 py-2 px-3">
+        <Loading />
         <div id="add-item">
           <input
             value={this.state.itemName}

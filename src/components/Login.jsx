@@ -6,15 +6,13 @@ const Login = (props) => {
   const handleSubmit = ({ name, mail, password }) => {
     const loading = document.getElementById("loading-container");
     loading.classList.remove("d-none");
-    axios
-      .post("http://localhost:5000/login/", { mail, password })
-      .then((res) => {
-        setTimeout(() => loading.classList.add("d-none"), 700);
-        setTimeout(() => {
-          props.authenticate(res.data.token);
-          if (res.data.token === "null") alert(res.data.message);
-        }, 1000);
-      });
+    axios.post("/login/", { mail, password }).then((res) => {
+      setTimeout(() => loading.classList.add("d-none"), 700);
+      setTimeout(() => {
+        props.authenticate(res.data.token);
+        if (res.data.token === "null") alert(res.data.message);
+      }, 1000);
+    });
   };
   return (
     <div className="col-12 col-sm-4 py-3 pt-sm-0" id="login-form">

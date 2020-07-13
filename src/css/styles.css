@@ -321,7 +321,7 @@ h3 {
 
 #to-do-container #to-do-list #list-items .list-item input {
   pointer-events: none;
-  width: 75%;
+  width: 62%;
   font-size: 1.3rem;
   border: none;
   outline: none;

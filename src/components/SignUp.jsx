@@ -7,15 +7,13 @@ const SignUp = (props) => {
   const handleSubmit = ({ name, mail, password }) => {
     const loading = document.getElementById("loading-container");
     loading.classList.remove("d-none");
-    axios
-      .post("http://localhost:5000/signup/", { name, mail, password })
-      .then((res) => {
-        setTimeout(() => loading.classList.add("d-none"), 700);
-        setTimeout(() => {
-          props.authenticate(res.data.token);
-          if (res.data.token === "null") alert(res.data.message);
-        }, 1000);
-      });
+    axios.post("/signup/", { name, mail, password }).then((res) => {
+      setTimeout(() => loading.classList.add("d-none"), 700);
+      setTimeout(() => {
+        props.authenticate(res.data.token);
+        if (res.data.token === "null") alert(res.data.message);
+      }, 1000);
+    });
   };
 
   return (
