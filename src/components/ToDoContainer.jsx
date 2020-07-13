@@ -35,13 +35,13 @@ export default class ToDoContainer extends Component {
   };
 
   addItem = () => {
-    const loading = document.getElementById("loading-container");
-    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     if (this.state.itemName.trim() === "") {
       alert("Enter a new item name");
       return;
     }
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     axios
       .post(
         `https://powerful-temple-81597.herokuapp.com/user/add-item/${token}`,
