@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/note-it/static/css/main.6fe07b9a.chunk.css",
+    "main.js": "/note-it/static/js/main.ee0b0ec6.chunk.js",
+    "main.js.map": "/note-it/static/js/main.ee0b0ec6.chunk.js.map",
+    "runtime-main.js": "/note-it/static/js/runtime-main.e5770e57.js",
+    "runtime-main.js.map": "/note-it/static/js/runtime-main.e5770e57.js.map",
+    "static/js/2.600d360f.chunk.js": "/note-it/static/js/2.600d360f.chunk.js",
+    "static/js/2.600d360f.chunk.js.map": "/note-it/static/js/2.600d360f.chunk.js.map",
+    "index.html": "/note-it/index.html",
+    "precache-manifest.c057c88f451a274825da22886836da25.js": "/note-it/precache-manifest.c057c88f451a274825da22886836da25.js",
+    "service-worker.js": "/note-it/service-worker.js",
+    "static/css/main.6fe07b9a.chunk.css.map": "/note-it/static/css/main.6fe07b9a.chunk.css.map",
+    "static/js/2.600d360f.chunk.js.LICENSE.txt": "/note-it/static/js/2.600d360f.chunk.js.LICENSE.txt",
+    "static/media/error.jpg": "/note-it/static/media/error.c8b2f7af.jpg",
+    "static/media/loading.svg": "/note-it/static/media/loading.dc896a6f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e5770e57.js",
+    "static/js/2.600d360f.chunk.js",
+    "static/css/main.6fe07b9a.chunk.css",
+    "static/js/main.ee0b0ec6.chunk.js"
+  ]
+}
