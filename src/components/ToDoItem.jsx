@@ -7,6 +7,12 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 const ToDoItem = (props) => {
   const [name, setItemName] = useState(props.value);
 
+  // const inputItemChange = (e, id) => {
+  //   props.value += e.target.value;
+  //   // setItemName(e.target.value);
+  //   // document.getElementById(id).value = name;
+  // };
+
   const editItemStart = (id) => {
     document.getElementById(id).removeAttribute("readonly");
     document.getElementById(id).classList.add("input-edit");

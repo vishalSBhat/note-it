@@ -39,6 +39,7 @@ export default class App extends React.Component {
           ) : (
             <>
               <NavBar authenticate={this.userAuthentication} show="true" />
+              <Loading />
               <Home authenticate={this.userAuthentication} />
             </>
           )}

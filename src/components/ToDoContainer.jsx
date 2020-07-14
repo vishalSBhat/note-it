@@ -14,11 +14,14 @@ export default class ToDoContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     axios
       .get(`https://powerful-temple-81597.herokuapp.com/user/list/${token}`)
       .then((res) => {
+        loading.classList.add("d-none");
         const data = res.data;
         if (data.authentication) this.props.authenticate("null");
         else if (data.list) this.setState({ itemList: [...data.list] });
@@ -27,10 +30,12 @@ export default class ToDoContainer extends Component {
   }
 
   updateItemList = (res, loading) => {
-    loading.classList.add("d-none");
+    //loading.classList.add("d-none");
     const data = res.data;
     if (data.authentication) this.props.authenticate("null");
-    else if (data.list) window.location.reload();
+    else if (data.list)
+      //this.setState({ itemList: [...data.list] });
+      window.location.reload();
     else alert(data);
   };
 
@@ -53,10 +58,10 @@ export default class ToDoContainer extends Component {
   };
 
   onItemPress = (id) => {
-    const loading = document.getElementById("loading-container");
-    loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
     if (!document.getElementById(id).hasAttribute("readonly")) return;
+    const loading = document.getElementById("loading-container");
+    loading.classList.remove("d-none");
     axios
       .post(
         `https://powerful-temple-81597.herokuapp.com/user/item-status/${token}`,
@@ -99,7 +104,6 @@ export default class ToDoContainer extends Component {
   render() {
     return (
       <div id="to-do-list" className="col-11 col-sm-7 py-2 px-3">
-        <Loading />
         <div id="add-item">
           <input
             value={this.state.itemName}
