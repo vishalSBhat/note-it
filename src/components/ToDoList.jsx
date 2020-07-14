@@ -7,6 +7,8 @@ const ToDoList = (props) => {
       {props.itemList.map((item, index) => {
         return (
           <ToDoItem
+            editItemStart={props.editItemStart}
+            editItemUpdateValue={props.editItemUpdateValue}
             editItem={props.editItem}
             onItemPress={props.onItemPress}
             deleteItem={props.deleteItem}

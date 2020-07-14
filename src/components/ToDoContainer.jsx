@@ -30,12 +30,11 @@ export default class ToDoContainer extends Component {
   }
 
   updateItemList = (res, loading) => {
-    //loading.classList.add("d-none");
+    loading.classList.add("d-none");
     const data = res.data;
     if (data.authentication) this.props.authenticate("null");
     else if (data.list)
-      //this.setState({ itemList: [...data.list] });
-      window.location.reload();
+      this.setState({ itemName: "", itemList: [...data.list] });
     else alert(data);
   };
 
@@ -86,7 +85,27 @@ export default class ToDoContainer extends Component {
       .then((res) => this.updateItemList(res, loading));
   };
 
-  editItem = (id, name) => {
+  editItemStart = (id) => {
+    document.getElementById(id).removeAttribute("readonly");
+    document.getElementById(id).classList.add("input-edit");
+    document.getElementById(id).focus();
+    document.getElementById(`edit${id}`).classList.remove("d-none");
+  };
+
+  editItemUpdateValue = (id, name) => {
+    const newList = [...this.state.itemList];
+    newList.map((item) => {
+      if (item._id === id) item.item = name;
+      return item;
+    });
+    this.setState({ itemList: [...newList] });
+  };
+
+  editItem = (id) => {
+    const name = this.state.itemList.filter((item) => item._id === id)[0].item;
+    document.getElementById(id).setAttribute("readonly", "readonly");
+    document.getElementById(id).classList.remove("input-edit");
+    document.getElementById(`edit${id}`).classList.add("d-none");
     const loading = document.getElementById("loading-container");
     loading.classList.remove("d-none");
     const token = localStorage.getItem("user");
@@ -117,6 +136,8 @@ export default class ToDoContainer extends Component {
           </span>
         </div>
         <ToDoList
+          editItemStart={this.editItemStart}
+          editItemUpdateValue={this.editItemUpdateValue}
           editItem={this.editItem}
           onItemPress={this.onItemPress}
           deleteItem={this.deleteItem}
